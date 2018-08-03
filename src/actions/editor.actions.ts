@@ -16,5 +16,3 @@ export const newCanvas = (width: number = 400, height: number = 800, color: stri
         }
     });
 };
-
-export const updateCanvas = () => (dispatch, state: IEditorState) => state.canvas.renderAll();

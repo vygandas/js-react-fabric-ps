@@ -2,7 +2,6 @@ import * as React from "react";
 import {connect} from "react-redux";
 import "./Editor.scss";
 import { IEditorState } from "../../interfaces/IEditorState";
-import { SketchPicker } from "react-color";
 import Toolbar from "../../components/Toolbar";
 
 export interface EditorPageProps {

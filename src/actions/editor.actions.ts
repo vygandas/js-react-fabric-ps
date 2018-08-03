@@ -17,15 +17,6 @@ export const newCanvas = (
         "object:selected": callback
     });
 
-    // canvas.on("mouse:down", event => {
-    //     if (canvas.getActiveObject()) {
-    //         // alert(event.target);
-    //         console.log("event.target", event.target);
-    //         // setActiveElement(event.target);
-    //         callback(event.target);
-    //     }
-    // });
-
     return dispatch({
         type: NEW_CANVAS,
         payload: {

@@ -5,6 +5,8 @@ import "./Toolbar.scss";
 import { IEditorState } from "../../interfaces/IEditorState";
 import {fabric} from "fabric";
 
+const FontFaceObserver = require("fontfaceobserver");
+
 interface IToolbarProps {
     canvas: IEditorState["canvas"];
     newCanvas: typeof newCanvas;
@@ -13,6 +15,8 @@ interface IToolbarProps {
 interface IToolbarState {
     active_element: any;
 }
+
+const fonts = ["Pacifico", "VT323", "Quicksand", "Inconsolata"];
 
 class Toolbar extends React.Component<IToolbarProps, IToolbarState> {
     constructor(props) {
@@ -35,18 +39,45 @@ class Toolbar extends React.Component<IToolbarProps, IToolbarState> {
               left: 10,
               top: 10,
               angle: -15,
-            //   width: 150,
-            //   height: 150,
               clipTo: function (ctx) {
                 ctx.arc(0, 0, radius, 0, Math.PI * 2, true);
               }
             });
             this.props.canvas.add(img).renderAll();
-            // this.props.canvas.renderAll();
           });
+    }
+    addText = () => {
+        const textbox = new (fabric as any).Textbox(prompt("Enter text", "Lorum ipsum dolor sit amet"), {
+            left: 50,
+            top: 50,
+            width: 150,
+            fontSize: 20
+        });
+        this.props.canvas.add(textbox);
     }
     handleActiveElement = (e) => {
         this.setState({ active_element: e });
+    }
+    loadAndUse = (font) => {
+        const myfont = new FontFaceObserver(font);
+        myfont.load()
+            .then(() => {
+                this.props.canvas.getActiveObject().set("fontFamily" as any, font);
+                this.props.canvas.requestRenderAll();
+            }).catch((e) => {
+                console.log(e);
+                alert("font loading failed " + font);
+            });
+    }
+    downloadImage = () => {
+        const dataURL = this.props.canvas.toDataURL({
+            format: "png",
+            left: 0,
+            top: 0,
+            width: this.props.canvas.getWidth(),
+            height: this.props.canvas.getHeight(),
+        });
+        console.log("dataURL", dataURL);
     }
     render() {
         return (
@@ -56,7 +87,6 @@ class Toolbar extends React.Component<IToolbarProps, IToolbarState> {
                         <button onClick={() => {
                             const d = this.getCanvasSizeParamsDialog();
                             this.props.newCanvas(d.w, d.h, "white", this.handleActiveElement);
-                            // this.initHandlers();
                         }}>New</button>
                     </li>
                     {this.props.canvas && [
@@ -72,11 +102,29 @@ class Toolbar extends React.Component<IToolbarProps, IToolbarState> {
                     <li>
                         <button onClick={() => {
                             console.log("this.state.active_element", this.state.active_element.selected);
-                            // this.props.canvas.getActiveObject().remove();
                             this.props.canvas.remove(this.props.canvas.getActiveObject());
                             this.props.canvas.renderAll();
                         }}>remove selected</button>
-                    </li>
+                    </li>,
+                    <li>
+                        <button onClick={() => this.addText()}>add text</button>
+                    </li>,
+                    <li>
+                        <select onChange={(e) => {
+                             if (e.target.value !== "Times New Roman") {
+                                this.loadAndUse(e.target.value);
+                              } else {
+                                this.props.canvas.getActiveObject().set("fontFamily" as any, e.target.value);
+                                this.props.canvas.requestRenderAll();
+                              }
+                        }}>
+                            <option value=""></option>
+                            {fonts.map(f => <option value={f}>{f}</option>)}
+                        </select>
+                    </li>,
+                    <li>
+                        <button onClick={() => this.addText()}>download png</button>
+                    </li>,
                     ]}
                 </ul>
             </div>

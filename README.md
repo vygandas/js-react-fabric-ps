@@ -2,6 +2,7 @@
 
 This is example implementation of Fabric library into a React project. TypeScript used.
 
+DEMO https://ecstatic-boyd-fa9268.netlify.com/
 
 ## Installation
 1. `npm install`

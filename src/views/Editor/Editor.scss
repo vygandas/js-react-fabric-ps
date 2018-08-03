@@ -1,0 +1,23 @@
+@import "../../assets/scss/mixins";
+@import "../../assets/scss/variables";
+
+.editor-page {
+  .canvas-wrapper {
+    position: absolute;
+    top: $toolbar_heigth;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: #999;
+    overflow: scroll;
+    @include box-shadow(0, 0, 30px, rgba(0,0,0,0.75), true);
+  }
+
+  #canvas {
+    margin: auto;
+
+    &.hidden {
+      visibility: 0;
+    }
+  }
+}

@@ -1,0 +1,18 @@
+@import "../../assets/scss/variables";
+
+.tool-bar {
+  height: $toolbar_heigth;
+
+  .tool-bar-items {
+    list-style: none;
+
+    li {
+      display: inline-block;
+      margin-right: 3px;
+
+      &:last-child {
+        margin-right: 0;
+      }
+    }
+  }
+}

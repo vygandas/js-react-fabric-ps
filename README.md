@@ -1,5 +1,8 @@
 # React and Fabric (poster maker app)
 
+
+[![Cover](https://github.com/vygandas/js-react-fabric-ps/tree/master/src/assets/img/cover.png)]
+
 This is example implementation of Fabric library into a React project. TypeScript used.
 
 DEMO https://ecstatic-boyd-fa9268.netlify.com/

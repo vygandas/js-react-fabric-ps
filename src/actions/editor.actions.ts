@@ -8,7 +8,7 @@ export const newCanvas = (
     color: string = "rgba(255, 255, 255, 1)",
     callback: (e) => void
 ) => dispatch => {
-    const canvas: fabric.Canvas = new fabric.Canvas("canvas");
+    const canvas: fabric.Canvas = new fabric.Canvas("canvas", { isDrawingMode: false });
     canvas.setWidth(width);
     canvas.setHeight(height);
     canvas.setBackgroundColor(color, undefined);

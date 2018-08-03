@@ -58,6 +58,7 @@ module.exports = {
         new CopyWebpackPlugin([
             {from:'assets/favicons', to:'../dist/favicons'},
             {from:'assets/img/loader.gif', to:'../dist/img/loader.gif'},
+            {from:'assets/img/A-fluffy-cat-looking-funny-surprised-or-concerned.jpg', to:'../dist/img/A-fluffy-cat-looking-funny-surprised-or-concerned.jpg'},
         ]),
     ],
     externals: {

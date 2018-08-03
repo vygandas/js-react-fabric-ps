@@ -4,7 +4,6 @@ import {connect} from "react-redux";
 import "./Toolbar.scss";
 import { IEditorState } from "../../interfaces/IEditorState";
 import {fabric} from "fabric";
-
 const FontFaceObserver = require("fontfaceobserver");
 
 interface IToolbarProps {
@@ -16,7 +15,7 @@ interface IToolbarState {
     active_element: any;
 }
 
-const fonts = ["Pacifico", "VT323", "Quicksand", "Inconsolata"];
+const fonts = ["Times New Roman", "Pacifico", "VT323", "Quicksand", "Inconsolata"];
 
 class Toolbar extends React.Component<IToolbarProps, IToolbarState> {
     constructor(props) {
@@ -32,7 +31,7 @@ class Toolbar extends React.Component<IToolbarProps, IToolbarState> {
         };
     }
     addImage = () => {
-        const imgUrl = prompt("Enter URL of Image", "https://www.catster.com/wp-content/uploads/2017/08/A-fluffy-cat-looking-funny-surprised-or-concerned.jpg");
+        const imgUrl = prompt("Enter URL of Image", "/img/A-fluffy-cat-looking-funny-surprised-or-concerned.jpg");
         const radius = 6000;
         fabric.Image.fromURL(imgUrl, img => {
             img.set({
@@ -76,8 +75,10 @@ class Toolbar extends React.Component<IToolbarProps, IToolbarState> {
             top: 0,
             width: this.props.canvas.getWidth(),
             height: this.props.canvas.getHeight(),
-        });
-        console.log("dataURL", dataURL);
+        })
+        .replace(/^data:image\/[^;]*/, "data:application/octet-stream;headers=Content-Disposition:attachment;filename=Canvas.png");
+
+        location.href = dataURL;
     }
     render() {
         return (
@@ -101,7 +102,6 @@ class Toolbar extends React.Component<IToolbarProps, IToolbarState> {
                     </li>,
                     <li>
                         <button onClick={() => {
-                            console.log("this.state.active_element", this.state.active_element.selected);
                             this.props.canvas.remove(this.props.canvas.getActiveObject());
                             this.props.canvas.renderAll();
                         }}>remove selected</button>
@@ -123,7 +123,7 @@ class Toolbar extends React.Component<IToolbarProps, IToolbarState> {
                         </select>
                     </li>,
                     <li>
-                        <button onClick={() => this.addText()}>download png</button>
+                        <button onClick={() => this.downloadImage()}>download png</button>
                     </li>,
                     ]}
                 </ul>

@@ -1,6 +1,6 @@
 import {IEditorState} from "../interfaces/IEditorState";
-import {NEW_CANVAS} from "../actions/types";
-import { Reducer } from "../../node_modules/redux";
+import {NEW_CANVAS, SET_SELECTED_ELEMENT} from "../actions/types";
+import { Reducer } from "redux";
 import { IAction } from "../interfaces/IAction";
 
 export const initialState: IEditorState = {
